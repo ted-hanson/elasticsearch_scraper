@@ -21,8 +21,7 @@ CSV.open("logs-#{Time.new.strftime("%m.%d.%y")}.csv", "ab") do |csv|
   amt = 10000
   i = 0
   while i < size do
-    puts "downloading index #{i}"
-    puts amt
+    puts "downloading index #{i} - #{i+amt}"
     x = `curl -POST 'http://logs.moov.sh:9200/logstash-*/_search?from=#{i}&size=#{amt}' -d '#{data}' -s`
 
     j = JSON.parse(x)['hits']['hits']
