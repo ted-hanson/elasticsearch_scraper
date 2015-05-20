@@ -7,6 +7,7 @@
   - usage ./es_to_csv.rb \<data> 
 
 Example data:
+```
 {
   "query": {
     "filtered": {
@@ -57,3 +58,4 @@ Example data:
     }
   ]
 }
+```
