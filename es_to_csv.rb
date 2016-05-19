@@ -5,7 +5,8 @@ require 'json'
 data = ARGV[0]
 size = ARGV[1] if !ARGV[1].nil?
 
-req = `curl 'http://logs.moov.sh:9200/logstash-*/_search?from=0&size=1' -d '#{data}' -s`
+host = 'search-moovweb-euu5rinexfwk2e5bpvg45wh35m.us-west-2.es.amazonaws.com'
+req = `curl 'http://#{host}/logstash-*/_search?from=0&size=1' -H "Content-Type: application/json" -d '#{data}' -s`
 
 
 CSV.open("logs-#{Time.new.strftime("%m.%d.%y")}.csv", "ab") do |csv|
@@ -22,7 +23,7 @@ CSV.open("logs-#{Time.new.strftime("%m.%d.%y")}.csv", "ab") do |csv|
   i = 0
   while i < size do
     puts "downloading index #{i} - #{i+amt}"
-    x = `curl -POST 'http://logs.moov.sh:9200/logstash-*/_search?from=#{i}&size=#{amt}' -d '#{data}' -s`
+    x = `curl -POST 'http://#{host}/logstash-*/_search?from=#{i}&size=#{amt}' -H "Content-Type: applicaiton/json" -d '#{data}' -s`
 
     j = JSON.parse(x)['hits']['hits']
     #iterate through all values and push
